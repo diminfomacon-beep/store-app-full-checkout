@@ -200,6 +200,37 @@
     border: 1px solid #ffeeba;
     font-size: 13px;
   }
+  .dim-product-card img {
+    height: 180px;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+
+  .dim-variation-select {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+
+  .dim-product-card p {
+    color: #666;
+    line-height: 1.4;
+    height: 40px; /* Limits description height for alignment */
+    overflow: hidden;
+  }
+  .dim-product-card {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers items horizontally */
+}
+
+/* Ensure the button and select don't stretch too wide if you use the flex layout */
+.dim-variation-select, .dim-btn {
+  width: 90% !important; 
+}
 </style>
 
 <div class="dim-app-container">
@@ -493,26 +524,228 @@
   var cart = [];
 
   var products = [
-    { name: "Sample Product 1", price: 9.99 },
-    { name: "Sample Product 2", price: 12.99 },
-    { name: "Sample Product 3", price: 14.50 },
-    { name: "Sample Product 4", price: 18.00 },
-    { name: "Sample Product 5", price: 19.99 },
-    { name: "Sample Product 6", price: 21.99 },
-    { name: "Sample Product 7", price: 24.99 },
-    { name: "Sample Product 8", price: 27.50 },
-    { name: "Sample Product 9", price: 29.99 },
-    { name: "Sample Product 10", price: 34.99 },
-    { name: "Sample Product 11", price: 39.99 },
-    { name: "Sample Product 12", price: 44.99 },
-    { name: "Sample Product 13", price: 49.99 },
-    { name: "Sample Product 14", price: 54.99 },
-    { name: "Sample Product 15", price: 59.99 },
-    { name: "Sample Product 16", price: 64.99 },
-    { name: "Sample Product 17", price: 69.99 },
-    { name: "Sample Product 18", price: 74.99 },
-    { name: "Sample Product 19", price: 79.99 },
-    { name: "Sample Product 20", price: 89.99 }
+    { 
+      name: "Short Sleeve Adult T-shirt", 
+      description: "100% organic cotton, comfortable fit.",
+      image: "https://via.placeholder.com/150", 
+      basePrice: 15.99,
+      variations: [
+        { label: "Small", extra: 0 },
+        { label: "XL", extra: 2.00 },
+        { label: "XXL", extra: 4.00 }
+      ]
+    },
+    { 
+      name: "Short Sleeve Adult T-shirt", 
+      description: "100% organic cotton, comfortable fit.",
+      image: "https://via.placeholder.com/150", 
+      basePrice: 15.99,
+      variations: [
+        { label: "Small", extra: 0 },
+        { label: "XL", extra: 2.00 },
+        { label: "XXL", extra: 4.00 }
+      ]
+    },
+    { 
+      name: "Short Sleeve Adult T-shirt", 
+      description: "100% organic cotton, comfortable fit.",
+      image: "https://via.placeholder.com/150", 
+      basePrice: 15.99,
+      variations: [
+        { label: "Small", extra: 0 },
+        { label: "XL", extra: 2.00 },
+        { label: "XXL", extra: 4.00 }
+      ]
+    },
+    { 
+      name: "Short Sleeve Adult T-shirt", 
+      description: "100% organic cotton, comfortable fit.",
+      image: "https://via.placeholder.com/150", 
+      basePrice: 15.99,
+      variations: [
+        { label: "Small", extra: 0 },
+        { label: "XL", extra: 2.00 },
+        { label: "XXL", extra: 4.00 }
+      ]
+    },
+    { 
+      name: "Short Sleeve Adult T-shirt", 
+      description: "100% organic cotton, comfortable fit.",
+      image: "https://via.placeholder.com/150", 
+      basePrice: 15.99,
+      variations: [
+        { label: "Small", extra: 0 },
+        { label: "XL", extra: 2.00 },
+        { label: "XXL", extra: 4.00 }
+      ]
+    },
+    { 
+      name: "Short Sleeve Adult T-shirt", 
+      description: "100% organic cotton, comfortable fit.",
+      image: "https://via.placeholder.com/150", 
+      basePrice: 15.99,
+      variations: [
+        { label: "Small", extra: 0 },
+        { label: "XL", extra: 2.00 },
+        { label: "XXL", extra: 4.00 }
+      ]
+    },
+    { 
+      name: "Short Sleeve Adult T-shirt", 
+      description: "100% organic cotton, comfortable fit.",
+      image: "https://via.placeholder.com/150", 
+      basePrice: 15.99,
+      variations: [
+        { label: "Small", extra: 0 },
+        { label: "XL", extra: 2.00 },
+        { label: "XXL", extra: 4.00 }
+      ]
+    },
+    { 
+      name: "Short Sleeve Adult T-shirt", 
+      description: "100% organic cotton, comfortable fit.",
+      image: "https://via.placeholder.com/150", 
+      basePrice: 15.99,
+      variations: [
+        { label: "Small", extra: 0 },
+        { label: "XL", extra: 2.00 },
+        { label: "XXL", extra: 4.00 }
+      ]
+    },
+    { 
+      name: "Short Sleeve Adult T-shirt", 
+      description: "100% organic cotton, comfortable fit.",
+      image: "https://via.placeholder.com/150", 
+      basePrice: 15.99,
+      variations: [
+        { label: "Small", extra: 0 },
+        { label: "XL", extra: 2.00 },
+        { label: "XXL", extra: 4.00 }
+      ]
+    },
+    { 
+      name: "Short Sleeve Adult T-shirt", 
+      description: "100% organic cotton, comfortable fit.",
+      image: "https://via.placeholder.com/150", 
+      basePrice: 15.99,
+      variations: [
+        { label: "Small", extra: 0 },
+        { label: "XL", extra: 2.00 },
+        { label: "XXL", extra: 4.00 }
+      ]
+    },
+    { 
+      name: "Short Sleeve Adult T-shirt", 
+      description: "100% organic cotton, comfortable fit.",
+      image: "https://via.placeholder.com/150", 
+      basePrice: 15.99,
+      variations: [
+        { label: "Small", extra: 0 },
+        { label: "XL", extra: 2.00 },
+        { label: "XXL", extra: 4.00 }
+      ]
+    },
+    { 
+      name: "Short Sleeve Adult T-shirt", 
+      description: "100% organic cotton, comfortable fit.",
+      image: "https://via.placeholder.com/150", 
+      basePrice: 15.99,
+      variations: [
+        { label: "Small", extra: 0 },
+        { label: "XL", extra: 2.00 },
+        { label: "XXL", extra: 4.00 }
+      ]
+    },
+    { 
+      name: "Short Sleeve Adult T-shirt", 
+      description: "100% organic cotton, comfortable fit.",
+      image: "https://via.placeholder.com/150", 
+      basePrice: 15.99,
+      variations: [
+        { label: "Small", extra: 0 },
+        { label: "XL", extra: 2.00 },
+        { label: "XXL", extra: 4.00 }
+      ]
+    },
+    { 
+      name: "Short Sleeve Adult T-shirt", 
+      description: "100% organic cotton, comfortable fit.",
+      image: "https://via.placeholder.com/150", 
+      basePrice: 15.99,
+      variations: [
+        { label: "Small", extra: 0 },
+        { label: "XL", extra: 2.00 },
+        { label: "XXL", extra: 4.00 }
+      ]
+    },
+    { 
+      name: "Short Sleeve Adult T-shirt", 
+      description: "100% organic cotton, comfortable fit.",
+      image: "https://via.placeholder.com/150", 
+      basePrice: 15.99,
+      variations: [
+        { label: "Small", extra: 0 },
+        { label: "XL", extra: 2.00 },
+        { label: "XXL", extra: 4.00 }
+      ]
+    },
+    { 
+      name: "Short Sleeve Adult T-shirt", 
+      description: "100% organic cotton, comfortable fit.",
+      image: "https://via.placeholder.com/150", 
+      basePrice: 15.99,
+      variations: [
+        { label: "Small", extra: 0 },
+        { label: "XL", extra: 2.00 },
+        { label: "XXL", extra: 4.00 }
+      ]
+    },
+    { 
+      name: "Short Sleeve Adult T-shirt", 
+      description: "100% organic cotton, comfortable fit.",
+      image: "https://via.placeholder.com/150", 
+      basePrice: 15.99,
+      variations: [
+        { label: "Small", extra: 0 },
+        { label: "XL", extra: 2.00 },
+        { label: "XXL", extra: 4.00 }
+      ]
+    },
+    { 
+      name: "Short Sleeve Adult T-shirt", 
+      description: "100% organic cotton, comfortable fit.",
+      image: "https://via.placeholder.com/150", 
+      basePrice: 15.99,
+      variations: [
+        { label: "Small", extra: 0 },
+        { label: "XL", extra: 2.00 },
+        { label: "XXL", extra: 4.00 }
+      ]
+    },
+    { 
+      name: "Short Sleeve Adult T-shirt", 
+      description: "100% organic cotton, comfortable fit.",
+      image: "https://via.placeholder.com/150", 
+      basePrice: 15.99,
+      variations: [
+        { label: "Small", extra: 0 },
+        { label: "XL", extra: 2.00 },
+        { label: "XXL", extra: 4.00 }
+      ]
+    },
+    { 
+      name: "Short Sleeve Adult T-shirt", 
+      description: "100% organic cotton, comfortable fit.",
+      image: "https://via.placeholder.com/150", 
+      basePrice: 15.99,
+      variations: [
+        { label: "Small", extra: 0 },
+        { label: "XL", extra: 2.00 },
+        { label: "XXL", extra: 4.00 }
+      ]
+    },
+    
+ 
   ];
  
   // Navigate from Cart → Checkout (no PayPal)
@@ -565,32 +798,88 @@
     var grid = document.getElementById("dim-products-grid");
     if (!grid) return;
     grid.innerHTML = "";
+
     products.forEach(function (p) {
       var card = document.createElement("div");
       card.className = "dim-product-card";
 
+        // 1. Image
+      var img = document.createElement("img");
+      img.src = p.image || "https://via.placeholder.com/150";
+      img.style = "width:100%; height:150px; object-fit:cover; border-radius:4px;";
+      
+      // 2. Name (Centered)
       var nameEl = document.createElement("div");
       nameEl.className = "dim-product-name";
+      nameEl.style = "text-align: center; margin-top: 10px;"; // Centering added here
       nameEl.textContent = p.name;
 
+      // 3. Description (Centered for balance)
+      var descEl = document.createElement("p");
+      descEl.style = "font-size:12px; color:#666; margin:8px 0; min-height:30px; text-align: center;";
+      descEl.textContent = p.description;
+
+      // 4. Price (Centered)
       var priceEl = document.createElement("div");
       priceEl.className = "dim-product-price";
-      priceEl.textContent = formatCurrency(p.price);
+      priceEl.style = "font-weight: bold; margin-bottom: 8px; color: #333; text-align: center;";
+      priceEl.textContent = p.variations ? "From " + formatCurrency(p.basePrice) : formatCurrency(p.basePrice);
+      // 5. Variation Dropdown (Conditional)
+      var select = null;
+      if (p.variations && p.variations.length > 0) {
+        select = document.createElement("select");
+        select.className = "dim-variation-select";
+        select.style = "width:100%; margin-bottom:12px; padding:6px; border-radius:4px; border:1px solid #ccc;";
 
+        var placeholder = document.createElement("option");
+        placeholder.textContent = "Size"; // Your placeholder
+        placeholder.value = "";
+        placeholder.disabled = true;
+        placeholder.selected = true;
+        select.appendChild(placeholder);
+
+        p.variations.forEach(function(v) {
+          var opt = document.createElement("option");
+          opt.value = v.extra;
+          opt.textContent = v.label + " (" + formatCurrency(p.basePrice + v.extra) + ")";
+          select.appendChild(opt);
+        });
+      }
+
+      // 6. Add to Cart Button
       var btn = document.createElement("button");
       btn.className = "dim-btn dim-btn-primary";
       btn.textContent = "Add to Cart";
+      
       btn.addEventListener("click", function () {
-        addToCart(p.name, p.price);
+        var finalPrice = p.basePrice;
+        var displayName = p.name;
+
+        if (select) {
+          if (select.selectedIndex === 0) {
+            alert("Please select a size first.");
+            return;
+          }
+          var extra = parseFloat(select.value);
+          var selectedText = select.options[select.selectedIndex].textContent.split(' (')[0];
+          finalPrice += extra;
+          displayName += " (" + selectedText + ")";
+        }
+
+        addToCart(displayName, finalPrice);
       });
 
+      // Putting it all together in the specific order you requested
+      card.appendChild(img);
       card.appendChild(nameEl);
-      card.appendChild(priceEl);
+      card.appendChild(descEl);
+      card.appendChild(priceEl); // Price goes first
+      if (select) card.appendChild(select); // Variation goes below price
       card.appendChild(btn);
+      
       grid.appendChild(card);
     });
   }
-
   function renderCartView() {
     var emptyMsg = document.getElementById("dim-cart-empty");
     var table = document.getElementById("dim-cart-table");
