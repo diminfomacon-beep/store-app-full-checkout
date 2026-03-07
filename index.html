@@ -49,7 +49,7 @@
     gap: 16px;
   }
   .dim-product-card {
-    background: #fff;
+    background: #CAE4DB;
     border-radius: 8px;
     padding: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
@@ -60,13 +60,13 @@
   }
   .dim-product-price {
     margin-bottom: 8px;
-    color: #444;
+    color: #000;
   }
 
   /* Buttons */
   .dim-btn {
     padding: 8px 14px;
-    border-radius: 20px;
+    border-radius: 10px;
     border: none;
     cursor: pointer;
     font-size: 13px;
@@ -75,7 +75,7 @@
     transition: 0.15s;
   }
   .dim-btn-primary {
-    background: linear-gradient(135deg, #4caf50, #81c784);
+    background: linear-gradient(180deg, #81c784, #2F6B64 );
     color: #fff;
   }
   .dim-btn-secondary {
@@ -217,7 +217,7 @@
   .dim-product-card p {
     color: #666;
     line-height: 1.4;
-    height: 40px; /* Limits description height for alignment */
+    height: flex; /* Limits description height for alignment */
     overflow: hidden;
   }
   .dim-product-card {
@@ -231,6 +231,26 @@
 .dim-variation-select, .dim-btn {
   width: 90% !important; 
 }
+.dim-product-card img {
+  background:#fff;
+}
+.dim-product-card .dim-btn-primary {
+  margin-top: auto;
+}
+/* Push price + options section downward */
+.dim-product-price {
+  margin-top: auto;
+}
+
+/* Keep variation dropdown just above the button */
+.dim-variation-select {
+  margin-bottom: 10px;
+}
+
+/* Keep button at very bottom */
+.dim-product-card .dim-btn-primary {
+  margin-top: 0;
+}
 </style>
 
 <div class="dim-app-container">
@@ -241,7 +261,7 @@
   </div>
 
   <!-- HOME VIEW -->
-  <div id="dim-view-home" class="dim-view active">
+  <div id="dim-view-home" class="dim-view active dim-product-card img">
     <h2>DIM Bright Ideas Store</h2>
     <p>Browse our sample products below. Add items to your cart and proceed to checkout.</p>
     <div class="dim-products-grid" id="dim-products-grid">
@@ -522,231 +542,140 @@
 
   // Cart lives in memory for this single-page app
   var cart = [];
+// *************** PRODUCTS **************************
+var products = [
+  { 
+    name: "Rooted in Christ T-Shirt", 
+    description: "High-quality graphic tee featuring the Rooted in Christ design.",
+    images: [
+      "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/Rooted%20in%20Christ.jpg" 
+  ],
+    basePrice: 15.99,
+    variations: [
+      { label: "Small", extra: 0 },
+      { label: "Medium", extra: 0 },
+      { label: "XL", extra: 2.00 },
+      { label: "XXL", extra: 4.00 }
+    ]
+  },
 
-  var products = [
-    { 
-      name: "Short Sleeve Adult T-shirt", 
-      description: "100% organic cotton, comfortable fit.",
-      image: "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/Rooted%20in%20Christ.jpg", 
-      basePrice: 15.99,
-      variations: [
-        { label: "Small", extra: 0 },
-        { label: "XL", extra: 2.00 },
-        { label: "XXL", extra: 4.00 }
-      ]
-    },
-    { 
-      name: "Short Sleeve Adult T-shirt", 
-      description: "100% organic cotton, comfortable fit.",
-      image: "https://via.placeholder.com/150", 
-      basePrice: 15.99,
-      variations: [
-        { label: "Small", extra: 0 },
-        { label: "XL", extra: 2.00 },
-        { label: "XXL", extra: 4.00 }
-      ]
-    },
-    { 
-      name: "Short Sleeve Adult T-shirt", 
-      description: "100% organic cotton, comfortable fit.",
-      image: "https://via.placeholder.com/150", 
-      basePrice: 15.99,
-      variations: [
-        { label: "Small", extra: 0 },
-        { label: "XL", extra: 2.00 },
-        { label: "XXL", extra: 4.00 }
-      ]
-    },
-    { 
-      name: "Short Sleeve Adult T-shirt", 
-      description: "100% organic cotton, comfortable fit.",
-      image: "https://via.placeholder.com/150", 
-      basePrice: 15.99,
-      variations: [
-        { label: "Small", extra: 0 },
-        { label: "XL", extra: 2.00 },
-        { label: "XXL", extra: 4.00 }
-      ]
-    },
-    { 
-      name: "Short Sleeve Adult T-shirt", 
-      description: "100% organic cotton, comfortable fit.",
-      image: "https://via.placeholder.com/150", 
-      basePrice: 15.99,
-      variations: [
-        { label: "Small", extra: 0 },
-        { label: "XL", extra: 2.00 },
-        { label: "XXL", extra: 4.00 }
-      ]
-    },
-    { 
-      name: "Short Sleeve Adult T-shirt", 
-      description: "100% organic cotton, comfortable fit.",
-      image: "https://via.placeholder.com/150", 
-      basePrice: 15.99,
-      variations: [
-        { label: "Small", extra: 0 },
-        { label: "XL", extra: 2.00 },
-        { label: "XXL", extra: 4.00 }
-      ]
-    },
-    { 
-      name: "Short Sleeve Adult T-shirt", 
-      description: "100% organic cotton, comfortable fit.",
-      image: "https://via.placeholder.com/150", 
-      basePrice: 15.99,
-      variations: [
-        { label: "Small", extra: 0 },
-        { label: "XL", extra: 2.00 },
-        { label: "XXL", extra: 4.00 }
-      ]
-    },
-    { 
-      name: "Short Sleeve Adult T-shirt", 
-      description: "100% organic cotton, comfortable fit.",
-      image: "https://via.placeholder.com/150", 
-      basePrice: 15.99,
-      variations: [
-        { label: "Small", extra: 0 },
-        { label: "XL", extra: 2.00 },
-        { label: "XXL", extra: 4.00 }
-      ]
-    },
-    { 
-      name: "Short Sleeve Adult T-shirt", 
-      description: "100% organic cotton, comfortable fit.",
-      image: "https://via.placeholder.com/150", 
-      basePrice: 15.99,
-      variations: [
-        { label: "Small", extra: 0 },
-        { label: "XL", extra: 2.00 },
-        { label: "XXL", extra: 4.00 }
-      ]
-    },
-    { 
-      name: "Short Sleeve Adult T-shirt", 
-      description: "100% organic cotton, comfortable fit.",
-      image: "https://via.placeholder.com/150", 
-      basePrice: 15.99,
-      variations: [
-        { label: "Small", extra: 0 },
-        { label: "XL", extra: 2.00 },
-        { label: "XXL", extra: 4.00 }
-      ]
-    },
-    { 
-      name: "Short Sleeve Adult T-shirt", 
-      description: "100% organic cotton, comfortable fit.",
-      image: "https://via.placeholder.com/150", 
-      basePrice: 15.99,
-      variations: [
-        { label: "Small", extra: 0 },
-        { label: "XL", extra: 2.00 },
-        { label: "XXL", extra: 4.00 }
-      ]
-    },
-    { 
-      name: "Short Sleeve Adult T-shirt", 
-      description: "100% organic cotton, comfortable fit.",
-      image: "https://via.placeholder.com/150", 
-      basePrice: 15.99,
-      variations: [
-        { label: "Small", extra: 0 },
-        { label: "XL", extra: 2.00 },
-        { label: "XXL", extra: 4.00 }
-      ]
-    },
-    { 
-      name: "Short Sleeve Adult T-shirt", 
-      description: "100% organic cotton, comfortable fit.",
-      image: "https://via.placeholder.com/150", 
-      basePrice: 15.99,
-      variations: [
-        { label: "Small", extra: 0 },
-        { label: "XL", extra: 2.00 },
-        { label: "XXL", extra: 4.00 }
-      ]
-    },
-    { 
-      name: "Short Sleeve Adult T-shirt", 
-      description: "100% organic cotton, comfortable fit.",
-      image: "https://via.placeholder.com/150", 
-      basePrice: 15.99,
-      variations: [
-        { label: "Small", extra: 0 },
-        { label: "XL", extra: 2.00 },
-        { label: "XXL", extra: 4.00 }
-      ]
-    },
-    { 
-      name: "Short Sleeve Adult T-shirt", 
-      description: "100% organic cotton, comfortable fit.",
-      image: "https://via.placeholder.com/150", 
-      basePrice: 15.99,
-      variations: [
-        { label: "Small", extra: 0 },
-        { label: "XL", extra: 2.00 },
-        { label: "XXL", extra: 4.00 }
-      ]
-    },
-    { 
-      name: "Short Sleeve Adult T-shirt", 
-      description: "100% organic cotton, comfortable fit.",
-      image: "https://via.placeholder.com/150", 
-      basePrice: 15.99,
-      variations: [
-        { label: "Small", extra: 0 },
-        { label: "XL", extra: 2.00 },
-        { label: "XXL", extra: 4.00 }
-      ]
-    },
-    { 
-      name: "Short Sleeve Adult T-shirt", 
-      description: "100% organic cotton, comfortable fit.",
-      image: "https://via.placeholder.com/150", 
-      basePrice: 15.99,
-      variations: [
-        { label: "Small", extra: 0 },
-        { label: "XL", extra: 2.00 },
-        { label: "XXL", extra: 4.00 }
-      ]
-    },
-    { 
-      name: "Short Sleeve Adult T-shirt", 
-      description: "100% organic cotton, comfortable fit.",
-      image: "https://via.placeholder.com/150", 
-      basePrice: 15.99,
-      variations: [
-        { label: "Small", extra: 0 },
-        { label: "XL", extra: 2.00 },
-        { label: "XXL", extra: 4.00 }
-      ]
-    },
-    { 
-      name: "Short Sleeve Adult T-shirt", 
-      description: "100% organic cotton, comfortable fit.",
-      image: "https://via.placeholder.com/150", 
-      basePrice: 15.99,
-      variations: [
-        { label: "Small", extra: 0 },
-        { label: "XL", extra: 2.00 },
-        { label: "XXL", extra: 4.00 }
-      ]
-    },
-    { 
-      name: "Short Sleeve Adult T-shirt", 
-      description: "100% organic cotton, comfortable fit.",
-      image: "https://via.placeholder.com/150", 
-      basePrice: 15.99,
-      variations: [
-        { label: "Small", extra: 0 },
-        { label: "XL", extra: 2.00 },
-        { label: "XXL", extra: 4.00 }
-      ]
-    },
-    
- 
-  ];
+  { 
+    name: "Cardboard Puzzle", 
+    description: "9.5x7.5 inches, 30 pieces. Customize it with memories, kids art or whatever your heart desires.",
+    images: [
+      "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/SFS-SPUZ30puzzle_1.png"
+
+     ],
+    basePrice: 10.00
+  },
+
+  { 
+    name: "Coffee Cup - 10oz", 
+    description: "Double-wall vacuum insulated cup with tinted sliding lid",
+    images: [
+      "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/Coffee%20Mug%20Tumbler.png",
+      "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/10CANDLECLEAR1.png"
+      ],
+    basePrice: 12.00
+  },
+
+  {
+    name: "Candle Jar", 
+    description: "10oz glass candle jar. Diameter 10 inches and height 3.7 inches. Perfect for gifting and fully customizable",
+    images: [
+      "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/Candle%20Jar.png"
+     ],
+    basePrice: 8.00,
+    variations: [
+      {label: "White", extra: 0},
+      {label: "Clear", extra: 0}
+    ]
+  },
+
+  {
+    name: "Kids Water Bottle - 12oz", 
+    description: "Leak proof flip top lid and built in internal straw. Avaiable in multiple colors.",
+    images: [
+      "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/12oz%20Sippy.png",
+      "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/12oz%20Sippy%20Cover.png",
+      "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/12SUBSIPPYBLUE1.png",
+      "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/12oz%20Sippy%20Bottom.png"
+      
+      ],
+    basePrice: 15.50,
+    variations: [
+      {label: "Pink with green", extra: 0},
+      {label: "Blue with gray", extra: 0},
+      {label: "Red with gray", extra: 0},
+      {label: "Black with gray", extra: 0},
+      {label: "Pink with Gray", extra: 0},
+      {label: "Orange with yellow", extra: 0}
+    ]
+  },
+  { 
+    name: "Stemless Wine Glass - 12oz", 
+    description: "Stemless tumbler shape wineglass withdouble-wall vacuum insulated and clear sliding lid. Comes with a clear straw.",
+    images: [
+      "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/12SUBSTEMLESS1_b840e95b-9ec6-4372-b0e2-1229ac95c877.png"
+      ],
+    basePrice: 18.30,
+  },
+  { 
+    name: "Tote Bag", 
+    description: "13.5 inches x 13.5 inches x 4 inches customizable tote bag, available in multiple colors.",
+    images: [
+      "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/10632230_31.png",
+      "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/10632229_31.png",
+      "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/10632228_2.png"
+    ], 
+    basePrice: 10.50,
+    variations: [
+      { label: "Black", extra: 0 },
+      { label: "White", extra: 0 },
+      { label: "Natural", extra: 0 },
+    ]
+  },
+  { 
+    name: "Ceramic Coffee Mug - 15oz", 
+    description: "Ceramic coffee mug perfect for gifting and fully customizable print.",
+    images: [
+      "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/15CERAMICMUG1.png" 
+      ],
+    basePrice: 8.00,
+  },
+  { 
+    name: "Ceramic Heat Changing Coffee Mug - 15oz", 
+    description: "Perfect for gifting. Changes color with hot liquid. Customizable.",
+    images: [
+      "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/ceramic%20mug.png" 
+      ],
+    basePrice: 9.00,
+  },
+  { 
+    name: "Glass Coffee Mug - 15oz", 
+    description: "Glitter globe glass coffee mug with woodes straw lid and clear plastic straw. ",
+    images: [
+      "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/15SUBGLASSGLITTERGLOBEMUG21_b7891d44-d6c4-40fd-8855-aabde5a38081.png"
+      ], 
+    basePrice: 13.90,
+  },
+  { 
+    name: "Aluminum Spray Bottle - 16oz", 
+    description: "Useful spray bottle withscrew-on spray head.",
+    images: [
+      "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/16SUBSPRAY1.png" 
+      ],
+    basePrice: 8.50,
+  },
+  { 
+    name: "Matte Glass Coffee Mug - 17oz", 
+    description: "Matte finish glass coffee mug with bamboo lid and clear straw included.",
+    images: [
+      "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/17SUBGLASSCOFFEEMATTE1_5a1ee9c7-f6d0-49ba-9de5-75cd392a8b1f.png" 
+      ],
+    basePrice: 9.00,
+  }
+];
  
   // Navigate from Cart → Checkout (no PayPal)
   var cartGoCheckoutBtn = document.getElementById("dim-cart-go-checkout");
@@ -795,91 +724,122 @@
   }
 
   function renderProducts() {
-    var grid = document.getElementById("dim-products-grid");
-    if (!grid) return;
-    grid.innerHTML = "";
+  var grid = document.getElementById("dim-products-grid");
+  if (!grid) return;
+  grid.innerHTML = "";
 
-    products.forEach(function (p) {
-      var card = document.createElement("div");
-      card.className = "dim-product-card";
+  products.forEach(function (p) {
+    // ---- Create card ----
+    var card = document.createElement("div");
+    card.className = "dim-product-card";
 
-        // 1. Image
-      var img = document.createElement("img");
-      img.src = p.image || "https://via.placeholder.com/150";
-      img.style = "width:100%; height:150px; object-fit:cover; border-radius:4px;";
-      
-      // 2. Name (Centered)
-      var nameEl = document.createElement("div");
-      nameEl.className = "dim-product-name";
-      nameEl.style = "text-align: center; margin-top: 10px;"; // Centering added here
-      nameEl.textContent = p.name;
+    // ---- Main Image ----
+    var img = document.createElement("img");
+    img.src = p.images ? p.images[0] : p.image || "https://via.placeholder.com/150";
+    img.style = "width:100%; height:180px; object-fit:contain; background:#f4f4f4; border-radius:4px;";
 
-      // 3. Description (Centered for balance)
-      var descEl = document.createElement("p");
-      descEl.style = "font-size:12px; color:#666; margin:8px 0; min-height:30px; text-align: center;";
-      descEl.textContent = p.description;
+    // ---- Thumbnails (below main image) ----
+    if (p.images && p.images.length > 1) {
+      var thumbWrapper = document.createElement("div");
+      thumbWrapper.style.display = "flex";
+      thumbWrapper.style.gap = "4px";
+      thumbWrapper.style.margin = "6px 0";
+      thumbWrapper.style.justifyContent = "center";
 
-      // 4. Price (Centered)
-      var priceEl = document.createElement("div");
-      priceEl.className = "dim-product-price";
-      priceEl.style = "font-weight: bold; margin-bottom: 8px; color: #333; text-align: center;";
-      priceEl.textContent = p.variations ? "From " + formatCurrency(p.basePrice) : formatCurrency(p.basePrice);
-      // 5. Variation Dropdown (Conditional)
-      var select = null;
-      if (p.variations && p.variations.length > 0) {
-        select = document.createElement("select");
-        select.className = "dim-variation-select";
-        select.style = "width:100%; margin-bottom:12px; padding:6px; border-radius:4px; border:1px solid #ccc;";
-
-        var placeholder = document.createElement("option");
-        placeholder.textContent = "Size"; // Your placeholder
-        placeholder.value = "";
-        placeholder.disabled = true;
-        placeholder.selected = true;
-        select.appendChild(placeholder);
-
-        p.variations.forEach(function(v) {
-          var opt = document.createElement("option");
-          opt.value = v.extra;
-          opt.textContent = v.label + " (" + formatCurrency(p.basePrice + v.extra) + ")";
-          select.appendChild(opt);
+      p.images.forEach(function(src){
+        var thumb = document.createElement("img");
+        thumb.src = src;
+        thumb.style.width = "30px";
+        thumb.style.height = "30px";
+        thumb.style.objectFit = "contain"; // <-- changed from cover to contain
+        thumb.style.cursor = "pointer";
+        thumb.style.borderRadius = "3px";
+        thumb.style.background = "#fff";   // optional, adds a white background
+        thumb.addEventListener("click", function() {
+          img.src = src; // change main image on click
         });
-      }
-
-      // 6. Add to Cart Button
-      var btn = document.createElement("button");
-      btn.className = "dim-btn dim-btn-primary";
-      btn.textContent = "Add to Cart";
-      
-      btn.addEventListener("click", function () {
-        var finalPrice = p.basePrice;
-        var displayName = p.name;
-
-        if (select) {
-          if (select.selectedIndex === 0) {
-            alert("Please select a size first.");
-            return;
-          }
-          var extra = parseFloat(select.value);
-          var selectedText = select.options[select.selectedIndex].textContent.split(' (')[0];
-          finalPrice += extra;
-          displayName += " (" + selectedText + ")";
-        }
-
-        addToCart(displayName, finalPrice);
+        thumbWrapper.appendChild(thumb);
       });
 
-      // Putting it all together in the specific order you requested
       card.appendChild(img);
-      card.appendChild(nameEl);
-      card.appendChild(descEl);
-      card.appendChild(priceEl); // Price goes first
-      if (select) card.appendChild(select); // Variation goes below price
-      card.appendChild(btn);
-      
-      grid.appendChild(card);
+      card.appendChild(thumbWrapper); // thumbnails below main image
+    } else {
+      card.appendChild(img);
+    }
+
+    // ---- Product Name ----
+    var nameEl = document.createElement("div");
+    nameEl.className = "dim-product-name";
+    nameEl.style = "text-align: center; margin-top: 10px;";
+    nameEl.textContent = p.name;
+
+    // ---- Description ----
+    var descEl = document.createElement("p");
+    descEl.style = "font-size:12px; color:#666; margin:8px 0; min-height:30px; text-align: center;";
+    descEl.textContent = p.description;
+
+    // ---- Price ----
+    var priceEl = document.createElement("div");
+    priceEl.className = "dim-product-price";
+    priceEl.style = "font-weight: bold; margin-bottom: 8px; color: #333; text-align: center;";
+    priceEl.textContent = p.variations ? "From " + formatCurrency(p.basePrice) : formatCurrency(p.basePrice);
+
+    // ---- Variation Dropdown ----
+    var select = null;
+    if (p.variations && p.variations.length > 0) {
+      select = document.createElement("select");
+      select.className = "dim-variation-select";
+      select.style = "width:100%; margin-bottom:12px; padding:6px; border-radius:4px; border:1px solid #ccc;";
+
+      var placeholder = document.createElement("option");
+      placeholder.textContent = "Select Option";
+      placeholder.value = "";
+      placeholder.disabled = true;
+      placeholder.selected = true;
+      select.appendChild(placeholder);
+
+      p.variations.forEach(function(v) {
+        var opt = document.createElement("option");
+        opt.value = v.extra;
+        opt.textContent = v.label + " (" + formatCurrency(p.basePrice + v.extra) + ")";
+        select.appendChild(opt);
+      });
+    }
+
+    // ---- Add to Cart Button ----
+    var btn = document.createElement("button");
+    btn.className = "dim-btn dim-btn-primary";
+    btn.textContent = "Add to Cart";
+
+    btn.addEventListener("click", function () {
+      var finalPrice = p.basePrice;
+      var displayName = p.name;
+
+      if (select) {
+        if (select.selectedIndex === 0) {
+          alert("Please select a size first.");
+          return;
+        }
+        var extra = parseFloat(select.value);
+        var selectedText = select.options[select.selectedIndex].textContent.split(' (')[0];
+        finalPrice += extra;
+        displayName += " (" + selectedText + ")";
+      }
+
+      addToCart(displayName, finalPrice);
     });
-  }
+
+    // ---- Assemble Card ----
+    card.appendChild(nameEl);
+    card.appendChild(descEl);
+    card.appendChild(priceEl);
+    if (select) card.appendChild(select);
+    card.appendChild(btn);
+
+    grid.appendChild(card);
+  });
+
+}
   function renderCartView() {
     var emptyMsg = document.getElementById("dim-cart-empty");
     var table = document.getElementById("dim-cart-table");
@@ -1128,7 +1088,7 @@
     const form = document.getElementById("dim-paypal-form");
     if (form) form.submit();
   });
-}
+  }
 
   document.addEventListener("DOMContentLoaded", function () {
      const urlParams = new URLSearchParams(window.location.search);
