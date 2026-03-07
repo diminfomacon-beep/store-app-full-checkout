@@ -4,7 +4,7 @@
     max-width: 1100px;
     margin: 20px auto;
     padding: 20px;
-    background: #fafafa;
+    background: #2F6B64;
     border-radius: 8px;
     box-shadow: 0 3px 12px rgba(0,0,0,0.08);
   }
@@ -17,18 +17,18 @@
   }
   .dim-nav-btn {
     padding: 8px 14px;
-    border-radius: 20px;
+    border-radius: 10px;
     border: none;
     cursor: pointer;
     font-size: 14px;
     font-weight: 600;
     text-transform: uppercase;
-    background: #e0e0e0;
-    color: #333;
+    background: #FEE84A;
+    color: #000;
     transition: 0.15s;
   }
   .dim-nav-btn.active {
-    background: #1976d2;
+    background: #ED7800;
     color: #fff;
   }
   .dim-nav-btn:hover {
@@ -47,16 +47,15 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 16px;
+    
+    padding: 20px;
+    margin-top: 20px
   }
-  .dim-product-card {
-    background: #CAE4DB;
-    border-radius: 8px;
-    padding: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  }
+
   .dim-product-name {
     font-weight: 600;
     margin-bottom: 4px;
+    
   }
   .dim-product-price {
     margin-bottom: 8px;
@@ -77,6 +76,12 @@
   .dim-btn-primary {
     background: linear-gradient(180deg, #81c784, #2F6B64 );
     color: #fff;
+  }
+
+  .dim-btn-checkout {
+    background: linear-gradient(180deg, #81c784, #2F6B64 );
+    color: #fff;
+    width: 40px;
   }
   .dim-btn-secondary {
     background: #e0e0e0;
@@ -204,6 +209,7 @@
     height: 180px;
     object-fit: cover;
     margin-bottom: 10px;
+     background:#fff;
   }
 
   .dim-variation-select {
@@ -221,6 +227,10 @@
     overflow: hidden;
   }
   .dim-product-card {
+  background: #CAE4DB;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -231,12 +241,7 @@
 .dim-variation-select, .dim-btn {
   width: 90% !important; 
 }
-.dim-product-card img {
-  background:#fff;
-}
-.dim-product-card .dim-btn-primary {
-  margin-top: auto;
-}
+
 /* Push price + options section downward */
 .dim-product-price {
   margin-top: auto;
@@ -251,6 +256,51 @@
 .dim-product-card .dim-btn-primary {
   margin-top: 0;
 }
+/* Main product image zoom on hover */
+.dim-product-card img.main-product-image {
+  transition: transform 0.3s ease;
+}
+
+.dim-product-card img.main-product-image:hover {
+  transform: scale(1.3); /* zooms 20% on hover */
+  z-index: 10;
+  position: relative;
+}
+.dim-search-filter {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  justify-content: center;
+}
+
+.dim-search-filter input,
+.dim-search-filter select {
+  padding: 8px 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 200px;
+}
+
+.dim-search-filter input:focus,
+.dim-search-filter select:focus {
+  outline: none;
+  border-color: #1976d2;
+}
+
+.dim-view.active {
+  background: #e4faf2;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+#dim-cart-go-checkout {
+    width: 200px;       /* fixed width */
+    display: block;     /* allows margin to work */
+    text-align: center; /* centers text inside the button */
+    margin-left: 0;     /* aligns button to the left */
+}
 </style>
 
 <div class="dim-app-container">
@@ -261,15 +311,28 @@
   </div>
 
   <!-- HOME VIEW -->
-  <div id="dim-view-home" class="dim-view active dim-product-card img">
-    <h2>DIM Bright Ideas Store</h2>
-    <p>Browse our sample products below. Add items to your cart and proceed to checkout.</p>
+ <div id="dim-view-home" class="dim-view active">
+    <h2 style="text-align:center;">DIM Bright Ideas Store</h2>
+    <p style="text-align:center;">Browse our products below. Choose your design, design your own in our design studio or send us your custom design. Add items to your cart and proceed to checkout.</p>
+      <div class="dim-search-filter">
+        <input type="text" id="dim-search-input" placeholder="Search products..." />
+        <select id="dim-filter-select">
+          <option value="">All Categories</option>
+          <option value="tshirt">T-Shirts</option>
+          <option value="mug">Mugs</option>
+          <option value="games">Games</option>
+          <option value="home">Home and Decor</option>
+          <option value="bottles">Water Bottles</option>
+          <option value="tumbler">Tumblers</option>
+          <option value="bag">Bags</option>
+          <!-- Add more categories as needed -->
+        </select>
+      </div>
     <div class="dim-products-grid" id="dim-products-grid">
       <!-- Products injected by JS -->
     </div>
   </div>
 
-  <!-- CART VIEW -->
   <!-- CART VIEW -->
 <div id="dim-view-cart" class="dim-view">
   <h2>Your Cart</h2>
@@ -286,7 +349,10 @@
 
   <!-- Proceed to Checkout button (not in a form!) -->
   <div style="margin-top:16px;">
-    <button class="dim-btn dim-btn-primary" id="dim-cart-go-checkout">
+    <button 
+        class="dim-btn dim-btn-checkout" 
+        id="dim-cart-go-checkout"
+        style="width:200px; display:block; text-align:center; margin-left:0;">
       Proceed to Checkout
     </button>
   </div>
@@ -490,31 +556,61 @@
               <tr><th>Item</th><th>Price</th><th>Qty</th><th>Total</th></tr>
             </thead>
             <tbody id="dim-checkout-items-body"></tbody>
-          </table>
-          <div style="margin-top:8px;">
-            <div>Subtotal: <span id="dim-checkout-subtotal">$0.00</span></div>
-            <div>Shipping: <span id="dim-checkout-shipping">$0.00</span></div>
-            <div>Sales Tax: <span id="dim-checkout-tax">$0.00</span></div>
-            <div><strong>Total: <span id="dim-checkout-total">$0.00</span></strong></div>
-          </div>
+          <tfoot>
+            <tr>
+              <td colspan="3" style="text-align:right;">Subtotal:</td>
+              <td id="dim-checkout-subtotal" style="text-align:right;">$0.00</td>
+            </tr>
+            <tr>
+              <td colspan="3" style="text-align:right;">Shipping:</td>
+              <td id="dim-checkout-shipping" style="text-align:right;">$0.00</td>
+            </tr>
+            <tr>
+              <td colspan="3" style="text-align:right;">Sales Tax:</td>
+              <td id="dim-checkout-tax" style="text-align:right;">$0.00</td>
+            </tr>
+            <tr>
+              <td colspan="3" style="text-align:right; font-weight:bold;">Total:</td>
+              <td id="dim-checkout-total" style="text-align:right; font-weight:bold;">$0.00</td>
+            </tr>   
+      </table>
+         
 
           <!-- PayPal Standard Checkout link -->
-          <div style="margin-top:16px;">
+          <div style="display: flex; justify-content: flex-end;">
             <form id="dim-paypal-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-              <!-- PayPal Standard parameters -->
-              <input type="hidden" name="cmd" value="_xclick">
-              <!-- Replace with your PayPal business email if needed -->
-              <input type="hidden" name="business" value="attestedfs@gmail.com">
-              <input type="hidden" name="currency_code" value="USD">
-              <input type="hidden" name="item_name" id="dim-paypal-item-name" value="Order from DIM Bright Ideas">
-              <input type="hidden" name="amount" id="dim-paypal-amount" value="0.00">
-              <!-- Optional: return/cancel URLs -->
-              <input type="hidden" name="return" value="https://www.dimbrightideas.com/home?checkout=success">
-              <input type="hidden" name="cancel_return" value="https://www.dimbrightideas.com/store">
 
-              <button type="button" class="dim-btn dim-btn-primary" id="dim-paypal-checkout-button">
+            <input type="hidden" name="cmd" value="_cart">
+            <input type="hidden" name="upload" value="1">
+
+            <input type="hidden" name="business" value="attestedfs@gmail.com">
+            <input type="hidden" name="currency_code" value="USD">
+
+            <input type="hidden" name="return" value="https://www.dimbrightideas.com/home?checkout=success">
+            <input type="hidden" name="cancel_return" value="https://www.dimbrightideas.com/store">
+
+            <div id="dim-paypal-hidden-fields"></div>
+          
+            
+              <button id="dim-paypal-checkout-button" style="
+                background-color: #003087;  /* PayPal blue */
+                color: #e9e5e5;             /* White text */
+                font-weight: bold;
+                font-size: 16px;
+                padding: 12px 24px;
+                border: none;
+                border-radius: 10px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+              ">
+                <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_111x69.jpg" 
+                    alt="PayPal" style="height:24px;">
                 Pay with PayPal
               </button>
+            
+
             </form>
           </div>
         </div>
@@ -534,18 +630,10 @@
 </div>
 
 <script>
-(function () {
-  "use strict";
-
-  var TAX_RATE = 0.07;
-  var SHIPPING_FLAT = 6.99;
-
-  // Cart lives in memory for this single-page app
-  var cart = [];
-// *************** PRODUCTS **************************
 var products = [
   { 
     name: "Rooted in Christ T-Shirt", 
+    category: "tshirt",
     description: "High-quality graphic tee featuring the Rooted in Christ design.",
     images: [
       "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/Rooted%20in%20Christ.jpg" 
@@ -561,6 +649,7 @@ var products = [
 
   { 
     name: "Cardboard Puzzle", 
+    category: "games",
     description: "9.5x7.5 inches, 30 pieces. Customize it with memories, kids art or whatever your heart desires.",
     images: [
       "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/SFS-SPUZ30puzzle_1.png"
@@ -571,19 +660,21 @@ var products = [
 
   { 
     name: "Coffee Cup - 10oz", 
+    category: "mug",
     description: "Double-wall vacuum insulated cup with tinted sliding lid",
     images: [
       "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/Coffee%20Mug%20Tumbler.png",
-      "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/10CANDLECLEAR1.png"
       ],
     basePrice: 12.00
   },
 
   {
-    name: "Candle Jar", 
+    name: "Candle Jar",
+    category: "home",
     description: "10oz glass candle jar. Diameter 10 inches and height 3.7 inches. Perfect for gifting and fully customizable",
     images: [
-      "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/Candle%20Jar.png"
+      "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/Candle%20Jar.png",
+      "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/10CANDLECLEAR1.png"
      ],
     basePrice: 8.00,
     variations: [
@@ -593,7 +684,8 @@ var products = [
   },
 
   {
-    name: "Kids Water Bottle - 12oz", 
+    name: "Kids Water Bottle - 12oz",
+    category: "bottles",
     description: "Leak proof flip top lid and built in internal straw. Avaiable in multiple colors.",
     images: [
       "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/12oz%20Sippy.png",
@@ -614,6 +706,7 @@ var products = [
   },
   { 
     name: "Stemless Wine Glass - 12oz", 
+    category: "tumbler",
     description: "Stemless tumbler shape wineglass withdouble-wall vacuum insulated and clear sliding lid. Comes with a clear straw.",
     images: [
       "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/12SUBSTEMLESS1_b840e95b-9ec6-4372-b0e2-1229ac95c877.png"
@@ -621,7 +714,8 @@ var products = [
     basePrice: 18.30,
   },
   { 
-    name: "Tote Bag", 
+    name: "Tote Bag",
+    category: "bag", 
     description: "13.5 inches x 13.5 inches x 4 inches customizable tote bag, available in multiple colors.",
     images: [
       "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/10632230_31.png",
@@ -637,6 +731,7 @@ var products = [
   },
   { 
     name: "Ceramic Coffee Mug - 15oz", 
+    category: "mug",
     description: "Ceramic coffee mug perfect for gifting and fully customizable print.",
     images: [
       "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/15CERAMICMUG1.png" 
@@ -645,6 +740,7 @@ var products = [
   },
   { 
     name: "Ceramic Heat Changing Coffee Mug - 15oz", 
+    category: "mug",
     description: "Perfect for gifting. Changes color with hot liquid. Customizable.",
     images: [
       "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/ceramic%20mug.png" 
@@ -653,6 +749,7 @@ var products = [
   },
   { 
     name: "Glass Coffee Mug - 15oz", 
+    category: "mug",
     description: "Glitter globe glass coffee mug with woodes straw lid and clear plastic straw. ",
     images: [
       "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/15SUBGLASSGLITTERGLOBEMUG21_b7891d44-d6c4-40fd-8855-aabde5a38081.png"
@@ -661,6 +758,7 @@ var products = [
   },
   { 
     name: "Aluminum Spray Bottle - 16oz", 
+    category: "home",
     description: "Useful spray bottle withscrew-on spray head.",
     images: [
       "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/16SUBSPRAY1.png" 
@@ -669,6 +767,7 @@ var products = [
   },
   { 
     name: "Matte Glass Coffee Mug - 17oz", 
+    category: "mug",
     description: "Matte finish glass coffee mug with bamboo lid and clear straw included.",
     images: [
       "https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/17SUBGLASSCOFFEEMATTE1_5a1ee9c7-f6d0-49ba-9de5-75cd392a8b1f.png" 
@@ -676,148 +775,195 @@ var products = [
     basePrice: 9.00,
   }
 ];
- 
-  // Navigate from Cart → Checkout (no PayPal)
-  var cartGoCheckoutBtn = document.getElementById("dim-cart-go-checkout");
-  if (cartGoCheckoutBtn) {
-    cartGoCheckoutBtn.addEventListener("click", function () {
-      switchView("checkout");  // ONLY switches the view
+
+var cart = JSON.parse(localStorage.getItem("dim-cart")) || [];
+
+function saveCart(){
+  localStorage.setItem("dim-cart", JSON.stringify(cart));
+}
+
+function formatCurrency(num){ return "$" + num.toFixed(2); }
+
+function addToCart(name, price) {
+
+  var found = cart.find(c=>c.name===name && c.price===price);
+
+  if(found){
+    found.quantity++;
+  } else {
+    cart.push({
+      name:name,
+      price:price,
+      quantity:1
     });
   }
-  function formatCurrency(v) {
-    return "$" + v.toFixed(2);
-  }
 
-  function getCartCount() {
-    return cart.reduce(function (sum, item) {
-      return sum + (item.quantity || 1);
-    }, 0);
-  }
+  saveCart();
+  updateFloatingCart();
+  renderCartView();
+  renderCheckoutView();
+}
+// Create a container that holds the main image and thumbnails
 
-  function updateFloatingCartCount() {
-    var el = document.getElementById("dim-floating-cart-count");
-    if (el) el.textContent = String(getCartCount());
-  }
 
-  function calculateTotals(method) {
-    var subtotal = cart.reduce(function (sum, item) {
-      var q = item.quantity || 1;
-      return sum + item.price * q;
-    }, 0);
-    subtotal = Math.round(subtotal * 100) / 100;
-    var shipping = method === "shipping" && cart.length ? SHIPPING_FLAT : 0;
-    var tax = Math.round(subtotal * TAX_RATE * 100) / 100;
-    var total = Math.round((subtotal + shipping + tax) * 100) / 100;
-    return { subtotal: subtotal, shipping: shipping, tax: tax, total: total };
-  }
+function renderProducts() {
+  var homeGrid = document.getElementById("dim-products-grid");
+  if (!homeGrid) return;
+  homeGrid.innerHTML = "";
 
-  function addToCart(name, price) {
-    var existing = cart.find(function (item) { return item.name === name && item.price === price; });
-    if (existing) {
-      existing.quantity = (existing.quantity || 1) + 1;
-    } else {
-      cart.push({ name: name, price: price, quantity: 1 });
-    }
-    updateFloatingCartCount();
-    renderCartView();
-    renderCheckoutView();
-  }
+  var searchTerm = document.getElementById("dim-search-input")?.value.toLowerCase() || "";
+  var categoryFilter = document.getElementById("dim-filter-select")?.value || "";
 
-  function renderProducts() {
-  var grid = document.getElementById("dim-products-grid");
-  if (!grid) return;
-  grid.innerHTML = "";
+  var filteredProducts = products.filter(p => {
+    var matchesSearch = p.name.toLowerCase().includes(searchTerm);
+    var matchesCategory = !categoryFilter || (p.category && p.category === categoryFilter);
+    return matchesSearch && matchesCategory;
+  });
 
-  products.forEach(function (p) {
-    // ---- Create card ----
+  filteredProducts.forEach(function (p) {
     var card = document.createElement("div");
     card.className = "dim-product-card";
 
-    // ---- Main Image ----
-    var img = document.createElement("img");
-    img.src = p.images ? p.images[0] : p.image || "https://via.placeholder.com/150";
-    img.style = "width:100%; height:180px; object-fit:contain; background:#f4f4f4; border-radius:4px;";
+    // ===== IMAGE + THUMBNAILS WRAPPER =====
+    var imgWrapper = document.createElement("div");
+    imgWrapper.style.display = "flex";
+    imgWrapper.style.alignItems = "flex-start";
+    imgWrapper.style.gap = "3px";
+    imgWrapper.style.width = "100%";
+    imgWrapper.style.padding = "3px";
+    imgWrapper.style.boxSizing = "border-box";
+    imgWrapper.style.background = "#fff";
 
-    // ---- Thumbnails (below main image) ----
+    // MAIN IMAGE
+    var img = document.createElement("img");
+    img.className = "main-product-image";
+    img.src = p.images && p.images.length > 0 ? p.images[0] : "https://via.placeholder.com/150";
+    img.style.width = p.images && p.images.length > 1 ? "calc(100% - 35px)" : "100%";
+    img.style.height = "150px";
+    img.style.objectFit = "contain";
+    img.style.background = "#fff";
+    img.style.borderRadius = "4px";
+    imgWrapper.appendChild(img);
+
+    // THUMBNAILS
     if (p.images && p.images.length > 1) {
       var thumbWrapper = document.createElement("div");
       thumbWrapper.style.display = "flex";
-      thumbWrapper.style.gap = "4px";
-      thumbWrapper.style.margin = "6px 0";
-      thumbWrapper.style.justifyContent = "center";
+      thumbWrapper.style.flexDirection = "column";
+      thumbWrapper.style.gap = "2px";
 
-      p.images.forEach(function(src){
+      p.images.forEach(src => {
         var thumb = document.createElement("img");
         thumb.src = src;
-        thumb.style.width = "30px";
-        thumb.style.height = "30px";
-        thumb.style.objectFit = "contain"; // <-- changed from cover to contain
+        thumb.style.width = "20px";
+        thumb.style.height = "20px";
+        thumb.style.objectFit = "contain";
         thumb.style.cursor = "pointer";
-        thumb.style.borderRadius = "3px";
-        thumb.style.background = "#fff";   // optional, adds a white background
-        thumb.addEventListener("click", function() {
-          img.src = src; // change main image on click
-        });
+        thumb.style.borderRadius = "2px";
+        thumb.style.background = "#fff";
+        thumb.addEventListener("click", () => { img.src = src; });
         thumbWrapper.appendChild(thumb);
       });
 
-      card.appendChild(img);
-      card.appendChild(thumbWrapper); // thumbnails below main image
-    } else {
-      card.appendChild(img);
+      imgWrapper.appendChild(thumbWrapper);
     }
 
-    // ---- Product Name ----
+    card.appendChild(imgWrapper);
+
+    // ===== NAME =====
     var nameEl = document.createElement("div");
     nameEl.className = "dim-product-name";
-    nameEl.style = "text-align: center; margin-top: 10px;";
+    nameEl.style.textAlign = "center";
+    nameEl.style.marginTop = "10px";
     nameEl.textContent = p.name;
+    card.appendChild(nameEl);
 
-    // ---- Description ----
+    // ===== DESCRIPTION =====
     var descEl = document.createElement("p");
-    descEl.style = "font-size:12px; color:#666; margin:8px 0; min-height:30px; text-align: center;";
+    descEl.style.fontSize = "12px";
+    descEl.style.color = "#666";
+    descEl.style.margin = "8px 0";
+    descEl.style.minHeight = "30px";
+    descEl.style.textAlign = "center";
     descEl.textContent = p.description;
+    card.appendChild(descEl);
 
-    // ---- Price ----
+    // ===== PRICE =====
     var priceEl = document.createElement("div");
     priceEl.className = "dim-product-price";
-    priceEl.style = "font-weight: bold; margin-bottom: 8px; color: #333; text-align: center;";
-    priceEl.textContent = p.variations ? "From " + formatCurrency(p.basePrice) : formatCurrency(p.basePrice);
+    priceEl.style.fontWeight = "bold";
+    priceEl.style.marginBottom = "8px";
+    priceEl.style.color = "#000";
+    priceEl.style.textAlign = "center";
+    if (p.variations && p.variations.length > 0) {
+      priceEl.innerHTML = `<span style="font-size:10px;">From </span>${formatCurrency(p.basePrice)}`;
+    } else {
+      priceEl.textContent = formatCurrency(p.basePrice);
+    }
+    card.appendChild(priceEl);
 
-    // ---- Variation Dropdown ----
+      // ===== VARIATION + QUANTITY =====
+    var rowWrapper = document.createElement("div");
+    rowWrapper.style.display = "flex";
+    rowWrapper.style.gap = "6px";
+    rowWrapper.style.alignItems = "center";
+
+    // Create variation select if available
     var select = null;
     if (p.variations && p.variations.length > 0) {
-      select = document.createElement("select");
-      select.className = "dim-variation-select";
-      select.style = "width:100%; margin-bottom:12px; padding:6px; border-radius:4px; border:1px solid #ccc;";
+        select = document.createElement("select");
+        select.className = "dim-variation-select";
+        var placeholder = document.createElement("option");
+        placeholder.textContent = "Select Option";
+        placeholder.disabled = true;
+        placeholder.selected = true;
+        select.appendChild(placeholder);
 
-      var placeholder = document.createElement("option");
-      placeholder.textContent = "Select Option";
-      placeholder.value = "";
-      placeholder.disabled = true;
-      placeholder.selected = true;
-      select.appendChild(placeholder);
+        p.variations.forEach(v => {
+            var opt = document.createElement("option");
+            opt.value = v.extra;
+            opt.textContent = v.label + " (" + formatCurrency(p.basePrice + v.extra) + ")";
+            select.appendChild(opt);
+        });
 
-      p.variations.forEach(function(v) {
-        var opt = document.createElement("option");
-        opt.value = v.extra;
-        opt.textContent = v.label + " (" + formatCurrency(p.basePrice + v.extra) + ")";
-        select.appendChild(opt);
-      });
+        // Fill remaining space
+        select.style.flex = "1";
+        select.style.display = "block";
+
+        rowWrapper.appendChild(select);
     }
 
-    // ---- Add to Cart Button ----
+    // Quantity input (always)
+    var qtyInput = document.createElement("input");
+    qtyInput.type = "number";
+    qtyInput.value = 1;
+    qtyInput.min = 1;
+    qtyInput.style.width = "40px"; // fixed width
+    qtyInput.style.boxSizing = "border-box";
+    qtyInput.style.height = "25px"; // standard height
+    qtyInput.style.display = "block";
+
+    // Center quantity if no variation
+    if (!select) {
+        rowWrapper.style.justifyContent = "center";
+    } 
+
+    rowWrapper.appendChild(qtyInput);
+    card.appendChild(rowWrapper);
+
+    // ===== ADD TO CART BUTTON =====
     var btn = document.createElement("button");
     btn.className = "dim-btn dim-btn-primary";
     btn.textContent = "Add to Cart";
-
-    btn.addEventListener("click", function () {
+    btn.style.width = "100%";
+    btn.style.marginTop = "4px";
+    btn.addEventListener("click", () => {
       var finalPrice = p.basePrice;
       var displayName = p.name;
 
       if (select) {
         if (select.selectedIndex === 0) {
-          alert("Please select a size first.");
+          alert("Please select an option first.");
           return;
         }
         var extra = parseFloat(select.value);
@@ -826,287 +972,300 @@ var products = [
         displayName += " (" + selectedText + ")";
       }
 
-      addToCart(displayName, finalPrice);
+      var qty = parseInt(qtyInput.value) || 1;
+      for (let i = 0; i < qty; i++) {
+        addToCart(displayName, finalPrice);
+      }
     });
 
-    // ---- Assemble Card ----
-    card.appendChild(nameEl);
-    card.appendChild(descEl);
-    card.appendChild(priceEl);
-    if (select) card.appendChild(select);
     card.appendChild(btn);
+    homeGrid.appendChild(card);
+  });
+}
 
-    grid.appendChild(card);
+function updateFloatingCart(){
+  var countEl = document.getElementById("dim-floating-cart-count");
+  if(!countEl) return;
+
+  var count = cart.reduce((total,item)=> total + (item.quantity || 1),0);
+  countEl.textContent = count;
+}
+
+function switchView(view){
+  ["home","cart","checkout"].forEach(v=>{
+    var el = document.getElementById("dim-view-"+v);
+    if(el) el.classList.toggle("active", v===view);
+    var btn = document.querySelector('.dim-nav-btn[data-view="'+v+'"]');
+    if(btn) btn.classList.toggle("active", v===view);
   });
 
+  if(view==="home") renderProducts();
+  if(view==="cart") renderCartView();
+  if(view==="checkout") renderCheckoutView();
 }
-  function renderCartView() {
-    var emptyMsg = document.getElementById("dim-cart-empty");
-    var table = document.getElementById("dim-cart-table");
-    var tbody = document.getElementById("dim-cart-body");
-    var subtotalEl = document.getElementById("dim-cart-subtotal");
-    if (!tbody) return;
 
-    tbody.innerHTML = "";
+function renderCartView() {
+  var tbody = document.getElementById("dim-cart-body"); 
+  if(!tbody) return;
+  var table = document.getElementById("dim-cart-table");
+  var emptyMsg = document.getElementById("dim-cart-empty");
+  var subtotalEl = document.getElementById("dim-cart-subtotal");
 
-    if (!cart.length) {
-      emptyMsg.style.display = "block";
-      table.style.display = "none";
-      subtotalEl.textContent = "$0.00";
-      return;
-    }
+  tbody.innerHTML = ""; 
+  var subtotal = 0;
 
-    emptyMsg.style.display = "none";
-    table.style.display = "table";
+  if(cart.length === 0){ 
+    emptyMsg.style.display = "block"; 
+    table.style.display = "none"; 
+    subtotalEl.textContent = "$0.00"; 
+    return; 
+  }
+  
+  emptyMsg.style.display = "none"; 
+  table.style.display = "table";
 
-    var subtotal = 0;
-    cart.forEach(function (item) {
-      var q = item.quantity || 1;
-      var lineTotal = item.price * q;
-      subtotal += lineTotal;
+  cart.forEach((item, index) => {
+    var q = item.quantity || 1;
+    var lineTotal = item.price * q;
+    subtotal += lineTotal;
 
-      var tr = document.createElement("tr");
-      var n = document.createElement("td");
-      var p = document.createElement("td");
-      var qty = document.createElement("td");
-      var t = document.createElement("td");
+    var tr = document.createElement("tr");
 
-      n.textContent = item.name;
-      p.textContent = formatCurrency(item.price);
-      qty.textContent = String(q);
-      t.textContent = formatCurrency(lineTotal);
+    tr.innerHTML = `
+      <td>${item.name}</td>
+      <td>${formatCurrency(item.price)}</td>
+      <td>
+        <button onclick="changeQty(${index},-1)">-</button>
+        ${q}
+        <button onclick="changeQty(${index},1)">+</button>
+      </td>
+      <td>${formatCurrency(lineTotal)}</td>
+      <td><button onclick="removeCartItem(${index})" style="cursor:pointer; font-size: 8px; background: none; border: none;">✖️</button></td>
+    `;
 
-      tr.appendChild(n);
-      tr.appendChild(p);
-      tr.appendChild(qty);
-      tr.appendChild(t);
-      tbody.appendChild(tr);
-    });
+    tbody.appendChild(tr);
+  });
 
-    subtotal = Math.round(subtotal * 100) / 100;
-    subtotalEl.textContent = formatCurrency(subtotal);
+  subtotalEl.textContent = formatCurrency(subtotal);
+}
+
+// New function to remove item completely
+function removeCartItem(index){
+  cart.splice(index, 1); // remove item
+  saveCart();
+  updateFloatingCart();
+  renderCartView();
+  renderCheckoutView();
+}
+function changeQty(index, amount){
+
+  cart[index].quantity += amount;
+
+  if(cart[index].quantity <= 0){
+    cart.splice(index,1);
   }
 
-  function getDeliveryMethod() {
-    var ship = document.getElementById("dim-delivery-shipping");
-    return ship && ship.checked ? "shipping" : "pickup";
+  saveCart();
+  updateFloatingCart();
+  renderCartView();
+  renderCheckoutView();
+}
+
+function validateCheckout(){
+
+  var terms = document.getElementById("dim-terms-checkbox");
+  if(!terms.checked){
+    alert("Please agree to the Terms and Conditions.");
+    return false;
   }
 
-  function renderCheckoutView() {
-    var emptyMsg = document.getElementById("dim-checkout-empty");
-    var main = document.getElementById("dim-checkout-main");
-    var tbody = document.getElementById("dim-checkout-items-body");
-    if (!tbody) return;
+  var shippingSelected = document.getElementById("dim-delivery-shipping").checked;
+  var pickupSelected = document.getElementById("dim-delivery-pickup").checked;
 
-    tbody.innerHTML = "";
+  if(shippingSelected){
 
-    if (!cart.length) {
-      emptyMsg.style.display = "block";
-      main.style.display = "none";
-      return;
-    }
+    var requiredFields = [
+      "dim-ship-name",
+      "dim-ship-email",
+      "dim-ship-address1",
+      "dim-ship-city",
+      "dim-ship-state",
+      "dim-ship-zip"
+    ];
 
-    emptyMsg.style.display = "none";
-    main.style.display = "block";
+    for(var id of requiredFields){
+      var field = document.getElementById(id);
 
-    cart.forEach(function (item) {
-      var q = item.quantity || 1;
-      var lineTotal = item.price * q;
-
-      var tr = document.createElement("tr");
-      var n = document.createElement("td");
-      var p = document.createElement("td");
-      var qty = document.createElement("td");
-      var t = document.createElement("td");
-
-      n.textContent = item.name;
-      p.textContent = formatCurrency(item.price);
-      qty.textContent = String(q);
-      t.textContent = formatCurrency(lineTotal);
-
-      tr.appendChild(n);
-      tr.appendChild(p);
-      tr.appendChild(qty);
-      tr.appendChild(t);
-      tbody.appendChild(tr);
-    });
-
-    updateTotalsDisplay();
-  }
-
-  function updateTotalsDisplay() {
-    var method = getDeliveryMethod();
-    var totals = calculateTotals(method);
-    document.getElementById("dim-checkout-subtotal").textContent = formatCurrency(totals.subtotal);
-    document.getElementById("dim-checkout-shipping").textContent = formatCurrency(totals.shipping);
-    document.getElementById("dim-checkout-tax").textContent = formatCurrency(totals.tax);
-    document.getElementById("dim-checkout-total").textContent = formatCurrency(totals.total);
-
-    // also set PayPal Standard "amount"
-    var paypalAmount = document.getElementById("dim-paypal-amount");
-    if (paypalAmount) {
-      paypalAmount.value = totals.total.toFixed(2);
-    }
-
-    // set item_name to something meaningful (first item or generic)
-    var itemNameField = document.getElementById("dim-paypal-item-name");
-    if (itemNameField) {
-      if (cart.length === 1) {
-        itemNameField.value = cart[0].name + " (DIM Bright Ideas)";
-      } else {
-        itemNameField.value = "Order from DIM Bright Ideas (" + cart.length + " items)";
-      }
-    }
-  }
-
-  function switchView(view) {
-    var views = ["home", "cart", "checkout"];
-    views.forEach(function (v) {
-      var el = document.getElementById("dim-view-" + v);
-      var btn = document.querySelector('.dim-nav-btn[data-view="' + v + '"]');
-      if (el) el.classList.toggle("active", v === view);
-      if (btn) btn.classList.toggle("active", v === view);
-    });
-
-    if (view === "cart") {
-      renderCartView();
-    } else if (view === "checkout") {
-      renderCheckoutView();
-    }
-  }
-
-  function validateCheckoutForm() {
-    var terms = document.getElementById("dim-terms-checkbox");
-    if (!terms || !terms.checked) {
-      alert("Please read and agree to the Terms and Conditions.");
-      return false;
-    }
-
-    var method = getDeliveryMethod();
-    if (method === "shipping") {
-      var ids = ["dim-ship-name","dim-ship-email","dim-ship-address1","dim-ship-city","dim-ship-state","dim-ship-zip"];
-      for (var i = 0; i < ids.length; i++) {
-        var el = document.getElementById(ids[i]);
-        if (!el || !el.value.trim()) {
-          alert("Please complete all required shipping fields.");
-          return false;
-        }
-      }
-    } else {
-      var pn = document.getElementById("dim-pickup-name").value.trim();
-      var pe = document.getElementById("dim-pickup-email").value.trim();
-      if (!pn || !pe) {
-        alert("Please fill in name and email for pickup.");
+      if(!field || field.value.trim() === ""){
+        alert("Please complete all shipping information.");
+        field.focus();
         return false;
       }
     }
-    return true;
+
   }
 
-  function setupNav() {
-    var navButtons = document.querySelectorAll(".dim-nav-btn");
-    navButtons.forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        var view = btn.getAttribute("data-view");
-        switchView(view);
-      });
-    });
+  if(pickupSelected){
 
-    var floating = document.getElementById("dim-floating-cart-button");
-    if (floating) {
-      floating.addEventListener("click", function () {
-        switchView("cart");
-      });
-    }
+    var requiredFields = [
+      "dim-pickup-name",
+      "dim-pickup-email"
+    ];
 
-    var backHome = document.getElementById("dim-cart-back-home");
-    if (backHome) {
-      backHome.addEventListener("click", function () {
-        switchView("home");
-      });
-    }
+    for(var id of requiredFields){
+      var field = document.getElementById(id);
 
-    var goCheckout = document.getElementById("dim-cart-go-checkout");
-    if (goCheckout) {
-      goCheckout.addEventListener("click", function () {
-        switchView("checkout");
-      });
-    }
-
-    var checkoutBackCart = document.getElementById("dim-checkout-back-cart");
-    if (checkoutBackCart) {
-      checkoutBackCart.addEventListener("click", function () {
-        switchView("cart");
-      });
-    }
-  }
-
-  // Delivery toggle updates totals dynamically
-  function setupDeliveryToggle() {
-    const ship = document.getElementById("dim-delivery-shipping");
-    const pick = document.getElementById("dim-delivery-pickup");
-
-    function toggle() {
-      const method = getDeliveryMethod();
-      document.getElementById("dim-shipping-section").style.display =
-        method === "shipping" ? "block" : "none";
-      document.getElementById("dim-pickup-section").style.display =
-        method === "shipping" ? "none" : "block";
-
-      updateTotalsDisplay(); // only update totals on delivery method change
-    }
-
-    if (ship) ship.addEventListener("change", toggle);
-    if (pick) pick.addEventListener("change", toggle);
-  }
-
-  function setupPayPalStandardButton() {
-  const paypalBtn = document.getElementById("dim-paypal-checkout-button");
-  if (!paypalBtn) return;
-
-  paypalBtn.addEventListener("click", function () {
-    if (!cart.length) {
-      alert("Your cart is empty.");
-      return;
-    }
-
-    // Validate all required checkout fields and terms
-    if (!validateCheckoutForm()) return;
-
-    // Update totals and PayPal hidden fields
-    const totals = calculateTotals(getDeliveryMethod());
-    const paypalAmount = document.getElementById("dim-paypal-amount");
-    const paypalItemName = document.getElementById("dim-paypal-item-name");
-
-    paypalAmount.value = totals.total.toFixed(2);
-    paypalItemName.value =
-      cart.length === 1
-        ? `${cart[0].name} (DIM Bright Ideas)`
-        : `Order from DIM Bright Ideas (${cart.length} items)`;
-
-    // Redirect to PayPal
-    const form = document.getElementById("dim-paypal-form");
-    if (form) form.submit();
-  });
-  }
-
-  document.addEventListener("DOMContentLoaded", function () {
-     const urlParams = new URLSearchParams(window.location.search);
-
-      if (urlParams.get("checkout") === "success") {
-        cart = []; // clear cart only after successful PayPal payment
-        updateFloatingCartCount();
-        renderCartView();
-        renderCheckoutView();
-        alert("Thank you! Your order was successful.");
-
-        // Remove the query param so refreshing page doesn't clear cart again
-        history.replaceState(null, "", window.location.pathname);
+      if(!field || field.value.trim() === ""){
+        alert("Please complete the pickup information.");
+        field.focus();
+        return false;
       }
-    renderProducts();
-    setupNav();
-    setupDeliveryToggle();
-    setupPayPalStandardButton();
+    }
+
+  }
+
+  return true;
+
+}
+
+document.getElementById("dim-paypal-form").addEventListener("submit", function(e){
+
+  if(cart.length === 0){
+    alert("Your cart is empty.");
+    e.preventDefault();
+    return;
+  }
+
+  if(!validateCheckout()){
+    e.preventDefault(); // THIS stops PayPal
+    return;
+  }
+
+  // Build PayPal cart items
+   cart.forEach((item,index)=>{
+
+    var i = index + 1;
+
+    hiddenFields.innerHTML += `
+      <input type="hidden" name="item_name_${i}" value="${item.name}">
+      <input type="hidden" name="amount_${i}" value="${item.price}">
+      <input type="hidden" name="quantity_${i}" value="${item.quantity}">
+    `;
+
   });
-})();
+
+});
+
+function renderCheckoutView(){
+  var tbody=document.getElementById("dim-checkout-items-body"); if(!tbody) return;
+  var emptyMsg=document.getElementById("dim-checkout-empty");
+  var main=document.getElementById("dim-checkout-main");
+  tbody.innerHTML="";
+
+  if(cart.length===0){ emptyMsg.style.display="block"; main.style.display="none"; return; }
+  emptyMsg.style.display="none"; main.style.display="block";
+
+  var subtotal=0;
+  cart.forEach(item=>{
+    var q=item.quantity||1; var lineTotal=item.price*q; subtotal+=lineTotal;
+    var tr=document.createElement("tr");
+    ["name","price","quantity","total"].forEach((k,i)=>{
+      var td=document.createElement("td");
+      td.textContent = i===1 ? formatCurrency(item.price) : i===2 ? String(q) : i===3 ? formatCurrency(lineTotal) : item.name;
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+
+  var shipping=0, tax=0, total=subtotal+shipping+tax;
+  document.getElementById("dim-checkout-subtotal").textContent=formatCurrency(subtotal);
+  document.getElementById("dim-checkout-shipping").textContent=formatCurrency(shipping);
+  document.getElementById("dim-checkout-tax").textContent=formatCurrency(tax);
+  document.getElementById("dim-checkout-total").textContent=formatCurrency(total);
+}
+
+      // Initial render
+    document.addEventListener("DOMContentLoaded",()=>{
+
+      renderProducts();
+      renderCartView();
+      renderCheckoutView();
+      updateFloatingCart();
+      
+      document.querySelectorAll(".dim-nav-btn").forEach(btn=>{
+        btn.addEventListener("click", ()=>{
+          switchView(btn.dataset.view);
+        });
+      });
+
+      document.getElementById("dim-search-input")
+        .addEventListener("input", renderProducts);
+
+      document.getElementById("dim-filter-select")
+        .addEventListener("change", renderProducts);
+
+      document.getElementById("dim-floating-cart-button")
+        .addEventListener("click", ()=> switchView("cart"));
+
+      document.getElementById("dim-cart-go-checkout")
+        .addEventListener("click", ()=> switchView("checkout"));
+
+      document.getElementById("dim-checkout-back-cart")
+        .addEventListener("click", ()=> switchView("cart"));
+
+      document.getElementById("dim-paypal-checkout-button").onclick = function(){
+
+          if(cart.length === 0){
+            alert("Your cart is empty.");
+            return false;
+          }
+
+          if(!validateCheckout()){
+            return false;
+          }
+
+          var hiddenFields = document.getElementById("dim-paypal-hidden-fields");
+          hiddenFields.innerHTML = "";
+
+          cart.forEach(function(item,index){
+            var i = index + 1;
+
+            var name = document.createElement("input");
+            name.type = "hidden";
+            name.name = "item_name_" + i;
+            name.value = item.name;
+
+            var price = document.createElement("input");
+            price.type = "hidden";
+            price.name = "amount_" + i;
+            price.value = item.price;
+
+            var qty = document.createElement("input");
+            qty.type = "hidden";
+            qty.name = "quantity_" + i;
+            qty.value = item.quantity;
+
+            hiddenFields.appendChild(name);
+            hiddenFields.appendChild(price);
+            hiddenFields.appendChild(qty);
+          });
+
+          document.getElementById("dim-paypal-form").submit();
+        };
+      });
+      function toggleDelivery(){
+
+        var shipping = document.getElementById("dim-delivery-shipping").checked;
+
+        document.getElementById("dim-shipping-section").style.display = shipping ? "block" : "none";
+        document.getElementById("dim-pickup-section").style.display = shipping ? "none" : "block";
+
+      }
+
+      document.getElementById("dim-delivery-shipping").addEventListener("change", toggleDelivery);
+      document.getElementById("dim-delivery-pickup").addEventListener("change", toggleDelivery);
+
+      toggleDelivery();
+
+
 </script>
