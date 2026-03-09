@@ -29,7 +29,7 @@
   }
   .dim-nav-btn.active {
     background: #000;
-    border: 2px solid #ffb347;
+    border: 1px solid #ffb347;
     border-radius: 10px;
     color: #ffb347;
   }
@@ -49,7 +49,7 @@
     display: grid;
     max-width: 1200px;
     margin: auto;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
     gap: 16px;
     justify-content: center;    
     padding: 20px;
@@ -242,6 +242,7 @@
   display: flex;
   flex-direction: column;
   align-items: center; /* Centers items horizontally */
+  transition: transform .2s, box-shadow .2s;
 }
 
 /* Ensure the button and select don't stretch too wide if you use the flex layout */
@@ -266,6 +267,11 @@
 /* Main product image zoom on hover */
 .dim-product-card img.main-product-image {
   transition: transform 0.3s ease;
+}
+
+.dim-product-card:hover{
+transform: translateY(-6px);
+box-shadow:0 10px 18px rgba(0,0,0,0.18);
 }
 
 .dim-product-card img.main-product-image:hover {
@@ -308,6 +314,32 @@
     text-align: center; /* centers text inside the button */
     margin-left: 0;     /* aligns button to the left */
 }
+
+#dim-pagination button {
+  display: inline-block !important;      /* override flex/block */
+  width: 120px !important;               /* fixed width */
+  margin: 0 8px;                         /* spacing */
+  text-align: center;
+  padding: 8px 0;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+#dim-pagination {
+  text-align: center;                     /* center buttons */
+  margin-top: 20px;
+}
+
+#dim-pagination button.dim-btn-secondary {
+  background: linear-gradient(180deg, #7481bb, #927bb8);
+  color: #000;
+  cursor: pointer;
+}
+
+#dim-pagination button.dim-btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
 </style>
 
 <div class="dim-app-container">
@@ -327,9 +359,9 @@
           <option value="">All Categories</option>
           <option value="apparel">Apparels</option>
           <option value="mug">Mugs</option>
-          <option value="games">Games</option>
+          <option value="game">Games</option>
           <option value="home">Home and Decor</option>
-          <option value="bottles">Water Bottles</option>
+          <option value="bottle">Water Bottles</option>
           <option value="tumbler">Tumblers</option>
           <option value="bag">Bags</option>
           <!-- Add more categories as needed -->
@@ -670,24 +702,8 @@
   </div>
 </div>
 
+<script src="products.js"></script>
 <script>
-  var products = [
-      {name: "Rooted in Christ T-Shirt",category: "tshirt",description: "High-quality graphic tee featuring the Rooted in Christ design.",images: ["https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/Rooted%20in%20Christ.jpg"],basePrice: 15.99,variations: [{ label: "Small", extra: 0 },{ label: "Medium", extra: 0 },{ label: "XL", extra: 2.00 },{ label: "XXL", extra: 4.00 }]},
-      {name: "Cardboard Puzzle",category: "games",description: "9.5x7.5 inches, 30 pieces. Customize it with memories, kids art or whatever your heart desires.",images: ["https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/SFS-SPUZ30puzzle_1.png"],basePrice: 10.00},
-      {name: "Coffee Cup - 10oz", category: "mug",description: "Double-wall vacuum insulated cup with tinted sliding lid",images: ["https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/Coffee%20Mug%20Tumbler.png",],basePrice: 12.00},
-      {name: "Candle Jar",category: "home",description: "10oz glass candle jar. Diameter 10 inches and height 3.7 inches. Perfect for gifting and fully customizable",images: ["https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/Candle%20Jar.png","https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/10CANDLECLEAR1.png"],basePrice: 8.00,variations: [{label: "White", extra: 0},{label: "Clear", extra: 0}]},
-      {name: "Kids Water Bottle - 12oz",category: "bottles",description: "Leak proof flip top lid and built in internal straw. Avaiable in multiple colors.",images: ["https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/12oz%20Sippy.png","https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/12oz%20Sippy%20Cover.png","https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/12SUBSIPPYBLUE1.png","https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/12oz%20Sippy%20Bottom.png"],basePrice: 15.50,variations: [{label: "Pink with green", extra: 0},{label: "Blue with gray", extra: 0},{label: "Red with gray", extra: 0},{label: "Black with gray", extra: 0},{label: "Pink with Gray", extra: 0},{label: "Orange with yellow", extra: 0}]},
-      {name: "Stemless Wine Glass - 12oz", category: "tumbler",description: "Stemless tumbler shape wineglass withdouble-wall vacuum insulated and clear sliding lid. Comes with a clear straw.",images: ["https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/12SUBSTEMLESS1_b840e95b-9ec6-4372-b0e2-1229ac95c877.png"],basePrice: 18.30,},
-      {name: "Tote Bag",category: "bag", description: "13.5 inches x 13.5 inches x 4 inches customizable tote bag, available in multiple colors.",images: ["https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/10632230_31.png","https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/10632229_31.png","https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/10632228_2.png"], basePrice: 10.50,variations: [{ label: "Black", extra: 0 },{ label: "White", extra: 0 },{ label: "Natural", extra: 0 },]},
-      {name: "Ceramic Coffee Mug - 15oz", category: "mug",description: "Ceramic coffee mug perfect for gifting and fully customizable print.",images: ["https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/15CERAMICMUG1.png" ],basePrice: 8.00,},
-      {name: "Ceramic Heat Changing Coffee Mug - 15oz", category: "mug",description: "Perfect for gifting. Changes color with hot liquid. Customizable.",images: ["https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/ceramic%20mug.png" ],basePrice: 9.00,},
-      {name: "Glass Coffee Mug - 15oz", category: "mug",description: "Glitter globe glass coffee mug with woodes straw lid and clear plastic straw. ",images: ["https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/15SUBGLASSGLITTERGLOBEMUG21_b7891d44-d6c4-40fd-8855-aabde5a38081.png"],basePrice: 13.90,},
-      {name: "Aluminum Spray Bottle - 16oz", category: "home",description: "Useful spray bottle withscrew-on spray head.",images: ["https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/16SUBSPRAY1.png"],basePrice: 8.50,},
-      {name: "Glass Coffee Mug", category: "mug",description: "17oz matte glass coffee mug. Custmizable and perfect for gifting.",images: ["https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/17SUBGLASSCOFFEEMATTE1_5a1ee9c7-f6d0-49ba-9de5-75cd392a8b1f.png"],basePrice: 9.00,},
-      {name: "Soap Dispenser", category: "home",description: "18oz handsoap dispenser. Design it your way for a personalized feel.",images: ["https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/HOGG-248.png"],basePrice: 15.00,},
-      {name: "Blanket", category: "home",description: "Multiple layout designs, soft minky material. Capture you precious moments for a lifetime.",images: ["https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/O1CN016TVKnN2Eb34CBdD9t__3230388762-0-cib_1_1.png","https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/O1CN01IuHBt12Eb34QqFdtd__3230388762-0-cib_1.png","https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/SUBBLANKETS1_24212936-9b47-4d9a-b46b-2fb9ab646052.png","https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/ScreenShot2022-07-13at10.20.44AM.png","https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/blanket20measurement.png","https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/blanket9measure.png","https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/moonblanksetsize.png","https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/pawsizeblanket.png"],basePrice: 32.00,variations: [{ label: "14 Panel Moon", extra: 38.00 },{ label: "15 Panel Paw", extra: 36.00 },{ label: "9 Panel", extra: 34.00 },{ label: "20 Panel", extra: 32.00 }]},
-      {name: "20oz Skinny Tumbler", category: "tumbler",description: "Skinny tumblers is a variety of color options. Duo tumblers comes with 2 lids. Customizable.",images: ["https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/20SUBDUOSK1.png"," https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/20SUBSKINNYEDGEHOLOWHITE1.png"," https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/20SUBMETGLITWHITE1.png"," https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/20oz%20Skinny%20Tumbler.png"," https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/skinny%20color.png"," https://raw.githubusercontent.com/diminfomacon-beep/store-app-full-checkout/main/product-pics/ombre%20group.png"],basePrice: 16.99,variations: [{ label: "Duo Skinny White w/ 2 lids", extra: 18.99 },{ label: "Glow Skinny", extra:18.99 },{ label: "Holographic Skinny", extra: 19.99 },{ label: "Metallic Glitter Skinny", extra: 18.99 },{ label: "Skinny White", extra:16.99 },{ label: "Skinny Loving Lime", extra: 17.99 },{ label: "Skinny Sweet Sunshine", extra: 17.99 },{ label: "Skinny Playful Petals", extra: 17.99 },{ label: "Skinny Cupids Crush", extra: 17.99 },{ label: "Duo Skinny Ombre Sugarplum", extra: 18.99 },{ label: "Duo Skinny Ombre Mulled Wine", extra: 18.99 },{ label: "Duo Skinny Ombre Cranberry Spice", extra: 18.99 },{ label: "Duo Skinny Ombre Silent Night", extra: 18.99 },{ label: "Duo Skinny Ombre Wintersky", extra: 18.99 },{ label: "Duo Skinny Ombre Icy Wonderland", extra: 18.99 },{ label: "Duo Skinny Ombre Peppermint Cream", extra: 18.99 }]}
-  ];
 
 var cart = JSON.parse(localStorage.getItem("dim-cart")) || [];
 
@@ -718,7 +734,8 @@ function addToCart(name, price) {
 }
 // Create a container that holds the main image and thumbnails
 
-
+var productsPerPage = 12;
+var currentPage = 1;
 function renderProducts() {
   var homeGrid = document.getElementById("dim-products-grid");
   if (!homeGrid) return;
@@ -733,7 +750,11 @@ function renderProducts() {
     return matchesSearch && matchesCategory;
   });
 
-  filteredProducts.forEach(function (p) {
+  var start = (currentPage - 1) * productsPerPage;
+  var end = start + productsPerPage;
+  var pageProducts = filteredProducts.slice(start, end);
+
+  pageProducts.forEach(function (p) {
     var card = document.createElement("div");
     card.className = "dim-product-card";
 
@@ -749,6 +770,7 @@ function renderProducts() {
 
     // MAIN IMAGE
     var img = document.createElement("img");
+    img.loading = "lazy";
     img.className = "main-product-image";
     img.src = p.images && p.images.length > 0 ? p.images[0] : "https://via.placeholder.com/150";
     img.style.width = p.images && p.images.length > 1 ? "calc(100% - 35px)" : "100%";
@@ -758,30 +780,34 @@ function renderProducts() {
     img.style.borderRadius = "4px";
     imgWrapper.appendChild(img);
 
-    // THUMBNAILS
+    // ===== THUMBNAILS =====
     if (p.images && p.images.length > 1) {
-      var thumbWrapper = document.createElement("div");
-      thumbWrapper.style.display = "grid";
-      thumbWrapper.style.gridTemplateColumns = "repeat(2, 20px)";
-      thumbWrapper.style.gridAutoRows = "20px";
-      thumbWrapper.style.gap = "2px";
-      thumbWrapper.style.maxHeight = "150px";
-      thumbWrapper.style.overflow = "hidden";
+        var thumbWrapper = document.createElement("div");
+        thumbWrapper.style.display = "grid";
+        thumbWrapper.style.gridAutoRows = "25px";
+        thumbWrapper.style.gap = "4px";
+        thumbWrapper.style.maxHeight = "150px";
+        thumbWrapper.style.overflowY = "auto";
+        thumbWrapper.style.gridTemplateColumns = p.images.length > 5 ? "repeat(2, 25px)" : "25px";
 
-      p.images.forEach(src => {
-        var thumb = document.createElement("img");
-        thumb.src = src;
-        thumb.style.width = "20px";
-        thumb.style.height = "25px";
-        thumb.style.objectFit = "contain";
-        thumb.style.cursor = "pointer";
-        thumb.style.borderRadius = "2px";
-        thumb.style.background = "#fff";
-        thumb.addEventListener("click", () => { img.src = src; });
-        thumbWrapper.appendChild(thumb);
-      });
+        p.images.forEach(src => {
+            var thumb = document.createElement("img");
+            thumb.src = src;
+            thumb.style.width = "100%";
+            thumb.style.height = "100%";
+            thumb.style.objectFit = "contain";
+            thumb.style.cursor = "pointer";
+            thumb.style.borderRadius = "3px";
+            thumb.style.background = "#fff";
 
-      imgWrapper.appendChild(thumbWrapper);
+            thumb.addEventListener("click", () => { 
+                img.src = src; 
+            });
+
+            thumbWrapper.appendChild(thumb);
+        });
+
+        imgWrapper.appendChild(thumbWrapper);
     }
 
     card.appendChild(imgWrapper);
@@ -818,54 +844,168 @@ function renderProducts() {
     }
     card.appendChild(priceEl);
 
-      // ===== VARIATION + QUANTITY =====
+    // ===== VARIATION + QUANTITY =====
     var rowWrapper = document.createElement("div");
     rowWrapper.style.display = "flex";
     rowWrapper.style.gap = "6px";
     rowWrapper.style.alignItems = "center";
 
-    // Create variation select if available
     var select = null;
+
     if (p.variations && p.variations.length > 0) {
+
         select = document.createElement("select");
         select.className = "dim-variation-select";
-        var placeholder = document.createElement("option");
+
+        const placeholder = document.createElement("option");
         placeholder.textContent = "Option";
         placeholder.disabled = true;
         placeholder.selected = true;
         select.appendChild(placeholder);
 
         p.variations.forEach(v => {
-            var opt = document.createElement("option");
-            opt.value = v.extra;
-            opt.textContent = v.label + " (" + formatCurrency(p.basePrice + v.extra) + ")";
+
+            const opt = document.createElement("option");
+
+            opt.value = v.extra;           // price
+            opt.dataset.label = v.label;   // label
+            opt.dataset.image = v.image;   // image
+
+            opt.textContent =
+                v.label + " (" + formatCurrency(p.basePrice + v.extra) + ")";
+
             select.appendChild(opt);
+
         });
 
-        // Fill remaining space
-        select.style.flex = "1";
-        select.style.display = "block";
-
         rowWrapper.appendChild(select);
+
+        // Change image when variation changes
+        select.addEventListener("change", () => {
+
+            var selectedOption = select.options[select.selectedIndex];
+
+            if (selectedOption.dataset.image) {
+                img.src = selectedOption.dataset.image;
+            }
+
+        });
+
     }
 
-    // Quantity input (always)
+    var styleSelect = null;
+
+    if (p.styles && p.styles.length > 0) {
+
+        styleSelect = document.createElement("select");
+        styleSelect.className = "dim-style-select";
+
+        const placeholder = document.createElement("option");
+        placeholder.textContent = "Design Style";
+        placeholder.disabled = true;
+        placeholder.selected = true;
+        styleSelect.appendChild(placeholder);
+
+        p.styles.forEach(st => {
+
+            const opt = document.createElement("option");
+
+            opt.value = st.extra;
+            opt.dataset.label = st.label;
+            opt.dataset.image = st.image;
+
+            opt.textContent = st.label + " (+" + formatCurrency(st.extra) + ")";
+
+            styleSelect.appendChild(opt);
+
+        });
+
+        rowWrapper.appendChild(styleSelect);
+
+        styleSelect.addEventListener("change", () => {
+
+            var selectedOption = styleSelect.options[styleSelect.selectedIndex];
+
+            if (selectedOption.dataset.image) {
+                img.src = selectedOption.dataset.image;
+            }
+
+        });
+
+    }
+    // Quantity input
     var qtyInput = document.createElement("input");
     qtyInput.type = "number";
     qtyInput.value = 1;
     qtyInput.min = 1;
-    qtyInput.style.width = "40px"; // fixed width
+    qtyInput.style.width = "40px";
     qtyInput.style.boxSizing = "border-box";
-    qtyInput.style.height = "25px"; // standard height
+    qtyInput.style.height = "25px";
     qtyInput.style.display = "block";
 
-    // Center quantity if no variation
-    if (!select) {
-        rowWrapper.style.justifyContent = "center";
-    } 
-
+    if (!select) rowWrapper.style.justifyContent = "center";
     rowWrapper.appendChild(qtyInput);
     card.appendChild(rowWrapper);
+
+   var sizeWrapper = document.createElement("div");
+   sizeWrapper.style.marginTop = "6px";
+   sizeWrapper.style.display = "flex";
+   sizeWrapper.style.flexWrap = "wrap";
+   sizeWrapper.style.justifyContent = "center";
+   sizeWrapper.style.gap = "8px";
+   sizeWrapper.style.maxWidth = "220px";
+   sizeWrapper.style.margin = "0 auto";
+
+    var sizeInputs = [];
+
+    if (p.sizes && p.sizes.length > 0) {
+
+        p.sizes.forEach(s => {
+
+            var row = document.createElement("div");
+            row.style.display = "flex";
+            row.style.flexDirection = "column";
+            row.style.alignItems = "center";
+            row.style.minWidth = "45px";
+
+            var label = document.createElement("span");
+            label.textContent = s.label;
+            label.style.fontSize = "10px";
+            label.style.fontWeight = "bold";
+            label.style.lineHeight = "1";
+
+            var qty = document.createElement("input");
+            qty.type = "number";
+            qty.min = 0;
+            qty.value = 0;
+            qty.style.width = "34px";
+            qty.style.height = "20px";
+            qty.style.fontSize = "11px";
+            qty.style.textAlign = "center";
+
+            qty.dataset.size = s.label;
+            qty.dataset.extra = s.extra;
+
+            sizeInputs.push(qty);
+
+            row.appendChild(label);
+            row.appendChild(qty);
+
+            sizeWrapper.appendChild(row);
+
+        });
+
+    }
+
+    var sizeTitle = document.createElement("div");
+    sizeTitle.textContent = "Sizes";
+    sizeTitle.style.fontSize = "12px";
+    sizeTitle.style.fontWeight = "bold";
+    sizeTitle.style.textAlign = "center";
+    sizeTitle.style.marginTop = "6px";
+    card.appendChild(sizeTitle);
+
+    card.appendChild(sizeWrapper);
 
     // ===== ADD TO CART BUTTON =====
     var btn = document.createElement("button");
@@ -874,29 +1014,107 @@ function renderProducts() {
     btn.style.width = "100%";
     btn.style.marginTop = "4px";
     btn.addEventListener("click", () => {
-      var finalPrice = p.basePrice;
-      var displayName = p.name;
 
-      if (select) {
-        if (select.selectedIndex === 0) {
-          alert("Please select an option first.");
-          return;
+        if (styleSelect && styleSelect.selectedIndex === 0) {
+            alert("Please select a design style.");
+            return;
         }
-        var extra = parseFloat(select.value);
-        var selectedText = select.options[select.selectedIndex].textContent.split(' (')[0];
-        finalPrice += extra;
-        displayName += " (" + selectedText + ")";
-      }
 
-      var qty = parseInt(qtyInput.value) || 1;
-      for (let i = 0; i < qty; i++) {
-        addToCart(displayName, finalPrice);
-      }
+        var styleExtra = styleSelect ? parseFloat(styleSelect.value) : 0;
+        var styleName = styleSelect ? styleSelect.options[styleSelect.selectedIndex].dataset.label : "";
+
+        let itemsAdded = false;
+
+        sizeInputs.forEach(input => {
+
+            let qty = parseInt(input.value) || 0;
+
+            if (qty > 0) {
+
+                let size = input.dataset.size;
+                let sizeExtra = parseFloat(input.dataset.extra);
+
+                let finalPrice = p.basePrice + styleExtra + sizeExtra;
+
+                for (let i = 0; i < qty; i++) {
+
+                    addToCart(
+                        p.name + " (" + styleName + " - " + size + ")",
+                        finalPrice
+                    );
+
+                }
+
+                itemsAdded = true;
+
+            }
+
+        });
+
+        if (!itemsAdded) {
+            alert("Please enter a quantity for at least one size.");
+        }
+
     });
 
     card.appendChild(btn);
     homeGrid.appendChild(card);
   });
+
+  // ===== PAGINATION =====
+  var pagination = document.getElementById("dim-pagination");
+  if(!pagination){
+    pagination = document.createElement("div");
+    pagination.id = "dim-pagination";
+    pagination.style.textAlign = "center";
+    pagination.style.marginTop = "20px";
+    homeGrid.parentNode.appendChild(pagination);
+  }
+
+  pagination.innerHTML = "";
+    var totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
+    if (totalPages > 1) {
+
+      // PREVIOUS BUTTON
+      var prev = document.createElement("button");
+      prev.textContent = "Previous";
+      prev.className = "dim-btn dim-btn-secondary";
+      prev.disabled = currentPage === 1;
+      prev.onclick = () => { currentPage--; renderProducts(); };
+      pagination.appendChild(prev);
+
+      // PAGE NUMBERS
+      for (let i = 1; i <= totalPages; i++) {
+
+        let pageNum = document.createElement("span");
+        pageNum.textContent = i;
+        pageNum.style.margin = "0 6px";
+        pageNum.style.cursor = "pointer";
+
+        if (i === currentPage) {
+          pageNum.style.fontWeight = "bold";
+          pageNum.style.textDecoration = "underline";
+        }
+
+        pageNum.onclick = () => {
+          currentPage = i;
+          renderProducts();
+        };
+
+        pagination.appendChild(pageNum);
+
+      }
+
+      // NEXT BUTTON
+      var next = document.createElement("button");
+      next.textContent = "Next";
+      next.className = "dim-btn dim-btn-secondary";
+      next.disabled = currentPage === totalPages;
+      next.onclick = () => { currentPage++; renderProducts(); };
+      pagination.appendChild(next);
+
+    }
 }
 
 function updateFloatingCart(){
@@ -1115,10 +1333,16 @@ function renderCheckoutView(){
       });
 
       document.getElementById("dim-search-input")
-        .addEventListener("input", renderProducts);
-
+        .addEventListener("input", () => {
+          currentPage = 1;
+          renderProducts();
+        });
+          
       document.getElementById("dim-filter-select")
-        .addEventListener("change", renderProducts);
+        .addEventListener("change", () => {
+          currentPage = 1;
+          renderProducts();
+        });
 
       document.getElementById("dim-floating-cart-button")
         .addEventListener("click", ()=> switchView("cart"));
